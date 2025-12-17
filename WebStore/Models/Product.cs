@@ -19,7 +19,7 @@ namespace WebStore.Models
         [Display(Name = "Цена")]
         [Range(0.01, 100000, ErrorMessage = "Цена должна быть больше 0")]
         [DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(18,2")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         [Display(Name = "Изображение")]

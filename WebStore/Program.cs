@@ -38,7 +38,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -61,11 +61,15 @@ using (var scope = app.Services.CreateScope())
         var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
+        await context.Database.MigrateAsync();
+
         await SeedData.Initialize(context, userManager, roleManager);
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<Logger<Program>>();
-        logger.LogError(ex, "error");
+        logger.LogError(ex, "Ошибка при инициализации базы данных");
     }
 }
+
+app.Run();
